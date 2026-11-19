@@ -1,0 +1,31 @@
+```html
+{% extends 'main.html' %}
+
+{% block content %}
+<h2>Deleted Employees</h2>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile Number</th>
+        <th>Designation</th>
+        <th>Department</th>
+    </tr>
+
+    {% for employee in trash_employees %}
+    <tr>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.mobile_number }}</td>
+        <td>{{ employee.designation }}</td>
+        <td>{{ employee.department }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">Trash is empty</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
+```

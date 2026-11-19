@@ -1,0 +1,71 @@
+
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>Employee Details</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>NAME:</label>
+    <input type="text" name="name" required>
+    <br><br>
+
+    <label>EMAIL:</label>
+    <input type="email" name="email" required>
+    <br><br>
+
+    <label>MOBILE NUMBER:</label>
+    <input type="text" name="mobile_number" required>
+    <br><br>
+
+    <label>DESIGNATION:</label>
+    <input type="text" name="designation" required>
+    <br><br>
+
+    <label>DEPARTMENT:</label>
+    <input type="text" name="department" required>
+    <br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<h2>Employee Details</h2>
+
+<table border="1">
+    <tr>
+        <th>NAME</th>
+        <th>EMAIL</th>
+        <th>MOBILE NUMBER</th>
+        <th>DESIGNATION</th>
+        <th>DEPARTMENT</th>
+        <th>ACTIONS</th>
+    </tr>
+
+    {% for employee in employees %}
+    <tr>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.mobile_number }}</td>
+        <td>{{ employee.designation }}</td>
+        <td>{{ employee.department }}</td>
+        <td>
+            <a href="{% url 'update_employee' id=employee.id %}">
+                Update
+            </a>
+
+            <a href="{% url 'delete_employee' id=employee.id %}">
+                Delete
+            </a>
+        </td>
+    </tr>
+
+    {% empty %}
+    <tr>
+        <td colspan="6">No employees found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}
