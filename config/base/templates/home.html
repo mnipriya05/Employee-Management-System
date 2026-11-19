@@ -1,11 +1,13 @@
 
+
 {% extends 'main.html' %}
 
 {% block content %}
 
 <h1>Employee Details</h1>
 
-<form method="POST">
+<!-- Employee Registration Form -->
+<form method="POST" class="employee-form">
     {% csrf_token %}
 
     <label>NAME:</label>
@@ -28,44 +30,66 @@
     <input type="text" name="department" required>
     <br><br>
 
-    <input type="submit" value="Submit">
+    <input type="submit" value="Add Employee">
 </form>
 
-<h2>Employee Details</h2>
 
-<table border="1">
-    <tr>
-        <th>NAME</th>
-        <th>EMAIL</th>
-        <th>MOBILE NUMBER</th>
-        <th>DESIGNATION</th>
-        <th>DEPARTMENT</th>
-        <th>ACTIONS</th>
-    </tr>
+<!-- Employee Table -->
+<h2>Employee List</h2>
 
-    {% for employee in employees %}
-    <tr>
-        <td>{{ employee.name }}</td>
-        <td>{{ employee.email }}</td>
-        <td>{{ employee.mobile_number }}</td>
-        <td>{{ employee.designation }}</td>
-        <td>{{ employee.department }}</td>
-        <td>
-            <a href="{% url 'update_employee' id=employee.id %}">
-                Update
-            </a>
+<div class="table-container">
 
-            <a href="{% url 'delete_employee' id=employee.id %}">
-                Delete
-            </a>
-        </td>
-    </tr>
+    <table class="employee-table">
 
-    {% empty %}
-    <tr>
-        <td colspan="6">No employees found</td>
-    </tr>
-    {% endfor %}
-</table>
+        <thead>
+            <tr>
+                <th>NAME</th>
+                <th>EMAIL</th>
+                <th>MOBILE NUMBER</th>
+                <th>DESIGNATION</th>
+                <th>DEPARTMENT</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for employee in employees %}
+
+            <tr>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.mobile_number }}</td>
+                <td>{{ employee.designation }}</td>
+                <td>{{ employee.department }}</td>
+
+                <td class="action-buttons">
+
+                    <a href="{% url 'update_employee' id=employee.id %}"
+                       class="update-btn">
+                        Update
+                    </a>
+
+                    <a href="{% url 'delete_employee' id=employee.id %}"
+                       class="delete-btn">
+                        Delete
+                    </a>
+
+                </td>
+            </tr>
+
+            {% empty %}
+
+            <tr>
+                <td colspan="6">No employees found</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
 
 {% endblock content %}
